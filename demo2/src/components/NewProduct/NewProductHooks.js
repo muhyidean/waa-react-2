@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useState , useRef} from "react";
 import './NewProduct.css';
-const NewProduct = (props) => {
 
+const NewProductHook = (props) => {
 
     const newProductForm = useRef();
 
@@ -23,6 +23,7 @@ const NewProduct = (props) => {
     }
     return (
         <div className="NewProduct">
+            With Ref
          <form ref={newProductForm}>
                 <h1>Add a Product</h1>
 

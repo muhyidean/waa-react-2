@@ -8,7 +8,7 @@ const Products = (props) => {
             price={product.price}
             id={product.id}
             key={product.id}
-
+            deleteProduct={() => { props.deleteProduct(product.id) }}
         />
     });
     return products;

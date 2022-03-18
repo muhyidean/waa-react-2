@@ -7,6 +7,10 @@ const Product = (props) => {
             <div className="Field">
                 {props.price}
             </div>
+            <input 
+                type="button" 
+                value="Delete"
+                onClick={props.deleteProduct} />
         </div>
     );
 }

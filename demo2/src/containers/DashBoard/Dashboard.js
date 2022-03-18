@@ -1,6 +1,7 @@
 import Products from "../Products/Products";
 import { useEffect, useState } from 'react';
 import NewProduct from "../../components/NewProduct/NewProduct";
+import NewProductHook from "../../components/NewProduct/NewProductHooks";
 
 import axios from 'axios';
 
@@ -15,6 +16,13 @@ export default function Dashboard() {
         ]
     );
 
+    const [productState, setProductState] = useState(
+        {
+            name: "",
+            price: ""
+        }
+    )
+
     const fetchProducts = () => {
         axios.get('http://localhost:8080/api/v1/products')
             .then(response => {
@@ -26,17 +34,10 @@ export default function Dashboard() {
     }
 
     useEffect(() => {
-        console.log('CALLED!');
         fetchProducts()
     },
         [])
 
-    const [productState, setProductState] = useState(
-        {
-            name: "",
-            price: ""
-        }
-    )
 
     const onChange = (events) => {
         const copy = { ...productState };
@@ -45,19 +46,35 @@ export default function Dashboard() {
     }
 
     const addButtonClicked = () => {
-        const copy = { ...productState };
-        copy.id = i;
-        i++;
-        const copyProductsState = [...productsState]
-        copyProductsState.push(copy);
-        setProductsState(copyProductsState);
+        axios.post('http://localhost:8080/api/v1/products', productState)
+            .then(response => {
+                setProductState(response);
+                fetchProducts();
+            })
+    }
+
+    const deleteButtonClicked = (id) => {
+        axios.delete('http://localhost:8080/api/v1/products/' + id, productState)
+            .then(response => {
+                fetchProducts();
+            })
+            .catch(err => {
+                console.error(err);
+            })
     }
 
     return (
         <div>
-            <Products products={productsState} />
-            <div> 
+            <Products
+                products={productsState}
+                deleteProduct={deleteButtonClicked}
+            />
+            <div>
                 {/* To try the other method of adding a new product using react hooks useRef */}
+                <NewProductHook
+                />
+
+
                 <NewProduct
                     name={productState.name}
                     price={productState.price}
