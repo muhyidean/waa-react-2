@@ -4,10 +4,12 @@ import NewProduct from "../../components/NewProduct/NewProduct";
 import NewProductHook from "../../components/NewProduct/NewProductHooks";
 
 import axios from 'axios';
+import ProductDetails from "../../components/ProductDetails/ProductDetails";
 
 export default function Dashboard() {
 
     let i = 4;
+    const [selectedState, setSelectedState] = useState(0);
     const [productsState, setProductsState] = useState(
         [
             { id: 1, name: "iPhone 13", price: 3000 },
@@ -63,12 +65,21 @@ export default function Dashboard() {
             })
     }
 
+    const setSelected = (id) => {
+        setSelectedState(id);
+    }
+
     return (
         <div>
             <Products
                 products={productsState}
                 deleteProduct={deleteButtonClicked}
+                setSelected={setSelected}
             />
+
+            <ProductDetails
+                id={selectedState}
+                />
             <div>
                 {/* To try the other method of adding a new product using react hooks useRef */}
                 <NewProductHook

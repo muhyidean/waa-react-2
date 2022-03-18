@@ -9,6 +9,7 @@ const Products = (props) => {
             id={product.id}
             key={product.id}
             deleteProduct={() => { props.deleteProduct(product.id) }}
+            setSelected= { ()=> { props.setSelected(product.id) }}
         />
     });
     return products;
