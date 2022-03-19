@@ -5,10 +5,13 @@ import NewProductHook from "../../components/NewProduct/NewProductHooks";
 
 import axios from 'axios';
 import ProductDetails from "../../components/ProductDetails/ProductDetails";
+import { ThemeColorContext } from "../../context/ThemeColor";
+import ReducerSample from "../../components/ReducerSample/ReducerSample";
 
 export default function Dashboard() {
 
     let i = 4;
+    const [themeColorState, setThemeColorState] = useState({ color: "red" });
     const [selectedState, setSelectedState] = useState(0);
     const [productsState, setProductsState] = useState(
         [
@@ -69,37 +72,52 @@ export default function Dashboard() {
         setSelectedState(id);
     }
 
+    const reviewColorHandler = () =>{
+        if(themeColorState.color === "red"){
+            setThemeColorState({color:"blue"});
+        }
+        else{
+            setThemeColorState({color:"red"});
+        }
+    }
+
     return (
         <React.Fragment>
-            <div className="Product">
-                <Products
-                    products={productsState}
-                    deleteProduct={deleteButtonClicked}
-                    setSelected={setSelected}
-                />
-            </div>
-            <div >
-                <ProductDetails
-                    id={selectedState}
-                />
-            </div>
+            <ThemeColorContext.Provider value={themeColorState}>
+                <div className="Product">
+                    <Products
+                        products={productsState}
+                        deleteProduct={deleteButtonClicked}
+                        setSelected={setSelected}
+                    />
+                </div>
+                <button onClick={reviewColorHandler} >Change color</button>
+                <div >
+                    <ProductDetails
+                        id={selectedState}
+                    />
+                </div>
 
-            <div>
-                {/* To try the other method of adding a new product using react hooks useRef */}
-                <NewProductHook
-                />
+                <div>
+                    {/* To try the other method of adding a new product using react hooks useRef */}
+                    <NewProductHook
+                    />
 
-                <NewProduct
-                    name={productState.name}
-                    price={productState.price}
-                    onChange={(event) => { onChange(event) }}
-                    addButtonClicked={addButtonClicked}
-                />
-            </div>
+                    <NewProduct
+                        name={productState.name}
+                        price={productState.price}
+                        onChange={(event) => { onChange(event) }}
+                        addButtonClicked={addButtonClicked}
+                    />
+                </div>
+                <div>
+                    <ReducerSample/>
+                </div>
 
 
-
+            </ThemeColorContext.Provider>
         </React.Fragment>
+
     )
 
 }
