@@ -1,9 +1,10 @@
-
+import './Review.css'
 
 const Review = (props) => {
 
     return (
-        <div>
+        
+        <div className='Review'>
             {props.comment}
         </div>
 

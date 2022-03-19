@@ -1,6 +1,7 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Fragment } from "react";
 import Review from "../Review/Review";
+import './ProductDetails.css';
 
 const ProductDetails = (props) => {
 
@@ -18,21 +19,29 @@ const ProductDetails = (props) => {
         },
         [props.id])
 
+    const space = <Fragment>&nbsp;&nbsp;</Fragment>;
+
     let productDetailsDisplay = null;
     if (props.id != 0) {
         console.log('HERE');
         productDetailsDisplay = (
 
-            <div className="Content">
+            <div className="ProductDetail">
                 <div>
                     Product Details
                 </div>
                 <h1> {productDetail.name}</h1>
                 <div >
                     {productDetail.price}
-                    {productDetail.reviews != null ? productDetail.reviews.map(review => {
-                        return <Review comment={review.comment} />
-                    }) : null}
+                    <br />
+                    <div style={{ textAlign: "left" }}>
+                        {space} Reviews <br />
+                        {productDetail.reviews != null ? productDetail.reviews.map(review => {
+                            return <Review comment={review.comment} />
+                        }) : null}
+                    </div>
+
+
 
                 </div>
             </div>

@@ -23,6 +23,14 @@ body {
     box-sizing: border-box;
     cursor: pointer;
   }
+
+  .Product {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    width: 80%;
+    margin: auto;
+  }
   
   .Content:hover,
   .Content:active {
@@ -31,5 +39,5 @@ body {
   
   .Field{
     margin: 16px 0;
-    color: #ccc;
+    color: rgb(10, 7, 206);
   }

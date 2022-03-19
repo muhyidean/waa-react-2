@@ -1,5 +1,5 @@
 import Products from "../Products/Products";
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import NewProduct from "../../components/NewProduct/NewProduct";
 import NewProductHook from "../../components/NewProduct/NewProductHooks";
 
@@ -70,21 +70,24 @@ export default function Dashboard() {
     }
 
     return (
-        <div>
-            <Products
-                products={productsState}
-                deleteProduct={deleteButtonClicked}
-                setSelected={setSelected}
-            />
-
-            <ProductDetails
-                id={selectedState}
+        <React.Fragment>
+            <div className="Product">
+                <Products
+                    products={productsState}
+                    deleteProduct={deleteButtonClicked}
+                    setSelected={setSelected}
                 />
+            </div>
+            <div >
+                <ProductDetails
+                    id={selectedState}
+                />
+            </div>
+
             <div>
                 {/* To try the other method of adding a new product using react hooks useRef */}
                 <NewProductHook
                 />
-
 
                 <NewProduct
                     name={productState.name}
@@ -96,7 +99,7 @@ export default function Dashboard() {
 
 
 
-        </div>
+        </React.Fragment>
     )
 
 }
