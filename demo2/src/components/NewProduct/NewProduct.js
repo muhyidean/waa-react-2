@@ -2,7 +2,6 @@ import { useState } from "react";
 import './NewProduct.css';
 const NewProduct = (props) => {
 
-
     return (
         <div className="NewProduct">
          
