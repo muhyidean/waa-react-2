@@ -1,8 +1,9 @@
-import React,{ useReducer } from "react";
+import React,{ useEffect, useReducer } from "react";
 
 const ReducerSample = ()=> {
 
     const initialState = { count: 0 };
+
 
     function reducer(state, action) {
         switch (action.type) {
