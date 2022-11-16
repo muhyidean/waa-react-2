@@ -1,10 +1,13 @@
 import axios from "axios";
-import { useState , useRef} from "react";
+import { useState , useRef, useEffect} from "react";
+import useLocalStorage from "../../hooks/useLocalStorage";
 import './NewProduct.css';
 
 const NewProductHook = (props) => {
 
+
     const newProductForm = useRef();
+    const [price, setPrice] = useLocalStorage('price','0')
 
     const ProductHandler = () =>{
         const form = newProductForm.current;
@@ -21,6 +24,11 @@ const NewProductHook = (props) => {
             console.error('Error:', error);
         })
     }
+
+    useEffect(  ()=> {
+        newProductForm.current['name'].value= "Dean";
+    } , []);
+
     return (
         <div className="NewProduct">
             With Ref
@@ -34,9 +42,10 @@ const NewProductHook = (props) => {
                 />
 
                 <label>Price</label>
-                <input type="text"
+                <input  type="text"
                     label={'price'}
                     name={'price'}
+                    onChange={e => setPrice(e.target.value)}
                 />
                 </form>
                 <button onClick={ProductHandler}>Add Product </button>

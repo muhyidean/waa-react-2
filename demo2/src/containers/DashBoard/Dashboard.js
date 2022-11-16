@@ -7,10 +7,15 @@ import axios from 'axios';
 import ProductDetails from "../../components/ProductDetails/ProductDetails";
 import { ThemeColorContext } from "../../context/ThemeColor";
 import ReducerSample from "../../components/ReducerSample/ReducerSample";
+import useLocalStorage from "../../hooks/useLocalStorage";
 
 export default function Dashboard() {
 
-    let i = 4;
+
+   
+    
+    
+    const [flag, setFlag] = useState(true);
     const [themeColorState, setThemeColorState] = useState({ color: "red" });
     const [selectedState, setSelectedState] = useState(0);
     const [productsState, setProductsState] = useState(
@@ -21,6 +26,7 @@ export default function Dashboard() {
         ]
     );
 
+    
     const [productState, setProductState] = useState(
         {
             name: "",
@@ -38,11 +44,14 @@ export default function Dashboard() {
             })
     }
 
+
     useEffect(() => {
         fetchProducts()
-    },
-        [])
+    }, [flag])
 
+    const flagHandler = () => {
+        setFlag(!flag);
+    }
 
     const onChange = (events) => {
         const copy = { ...productState };
@@ -50,13 +59,6 @@ export default function Dashboard() {
         setProductState(copy);
     }
 
-    const addButtonClicked = () => {
-        axios.post('http://localhost:8080/api/v1/products', productState)
-            .then(response => {
-                setProductState(response);
-                fetchProducts();
-            })
-    }
 
     const deleteButtonClicked = (id) => {
         axios.delete('http://localhost:8080/api/v1/products/' + id, productState)
@@ -72,12 +74,12 @@ export default function Dashboard() {
         setSelectedState(id);
     }
 
-    const reviewColorHandler = () =>{
-        if(themeColorState.color === "red"){
-            setThemeColorState({color:"blue"});
+    const reviewColorHandler = () => {
+        if (themeColorState.color === "red") {
+            setThemeColorState({ color: "blue" });
         }
-        else{
-            setThemeColorState({color:"red"});
+        else {
+            setThemeColorState({ color: "red" });
         }
     }
 
@@ -100,19 +102,21 @@ export default function Dashboard() {
 
                 <div>
                     {/* To try the other method of adding a new product using react hooks useRef */}
-                    <NewProductHook
-                    />
-
-                    <NewProduct
+                    <NewProductHook />
+                    {/* <NewProduct
                         name={productState.name}
                         price={productState.price}
                         onChange={(event) => { onChange(event) }}
                         addButtonClicked={addButtonClicked}
-                    />
+                    /> */}
                 </div>
-                <div>
-                    <ReducerSample/>
+                <div className="Product">
+                    <div className="Content">
+                        {flag ? <ReducerSample /> : ""}
+                        <button onClick={flagHandler}> Hide</button>
+                    </div>
                 </div>
+
 
 
             </ThemeColorContext.Provider>

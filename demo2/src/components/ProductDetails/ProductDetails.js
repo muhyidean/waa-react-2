@@ -6,8 +6,7 @@ import './ProductDetails.css';
 const ProductDetails = (props) => {
 
     // FOR DEMO PURPOSES ======
-    const [incrementValue, setIncrementValue] = useState(1); // This is to increase the value
-    const [count, setCount] = useState(0); // 
+
     const [value, setValue] = useState(0);  // click button , this will change the value for useMemo example
     const textField = useRef();
     // ========================
@@ -20,11 +19,14 @@ const ProductDetails = (props) => {
             axios.get('http://localhost:8080/api/v1/products/' + props.id + '/reviews')
                 .then(response => {
                     setProductDetail(response.data)
-                    console.log("RESPONSE:", response.data)
+                    // console.log("RESPONSE:", response.data)
                 })
                 .catch(err => console.log(err.message))
         },
         [props.id])
+
+
+
 
 
     // JUST FOR EXPLNATION useMemo()=========================
@@ -41,32 +43,16 @@ const ProductDetails = (props) => {
         console.log("MEMOIZED VALUE:" + memoizedValue);
     }
 
-    // FOR DEMO PURPOSES ====== useCallback() ======= 
-    const plainIncrement = () => {
-        setCount(c => c + incrementValue); //1
-    }
-
-    const useCallbackIncrement = useCallback(() => {
-        setCount(c => c + incrementValue);
-    }, [incrementValue]); // i
-
-    const useCallBackAndMemoDemo = <div>
+    const useMemoDemo =
         <div>
+            <div>
 
-            <input type="number" ref={textField} />
-            {/*  */}
-            <button onClick={() => memoizedFunction(textField.current.value)}> Compute</button>
+                <input type="number" ref={textField} />
+                <button onClick={() => memoizedFunction(textField.current.value)}> Compute</button>
 
+            </div>
+           
         </div>
-        <div>useCallback Value Count: {count}</div>
-
-        <button onClick={() => {
-            setIncrementValue(incrementValue + 5);
-            console.log(incrementValue);
-        }} > Add 5 </button>
-
-        {/* plainIncrement */}
-    </div>
 
     // ====== useCallback() ======= 
 
@@ -86,11 +72,11 @@ const ProductDetails = (props) => {
                     {productDetail.price}
                     <br />
                     {/* Make a conditional render to show student and hide with a button  */}
-                    {useCallBackAndMemoDemo}
+                    {useMemoDemo}
                     <div style={{ textAlign: "left" }}>
                         {space} Reviews <br />
                         {productDetail.reviews != null ? productDetail.reviews.map(review => {
-                            return <Review comment={review.comment} buttonClicked={useCallbackIncrement} />
+                            return <Review comment={review.comment} key={review.id} />
                         }) : null}
                     </div>
 

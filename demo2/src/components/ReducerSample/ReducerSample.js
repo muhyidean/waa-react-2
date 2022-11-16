@@ -1,9 +1,29 @@
-import React,{ useEffect, useReducer } from "react";
+import React, { useCallback, useEffect, useReducer, useState } from "react";
+import Test from "../Test/Test";
 
-const ReducerSample = ()=> {
+const ReducerSample = () => {
+
 
     const initialState = { count: 0 };
 
+    // FOR DEMO PURPOSES ====== useCallback() ======= 
+    const [value, setValue] = useState(0);
+    const [incrementValue, setIncrementValue] = useState(1);
+
+    // const doSomething = () => {
+    //     setValue(v => v + incrementValue);
+    // }
+
+    const doSomething = useCallback(() => {
+        setValue(v => v + incrementValue);
+    }, [incrementValue])
+    //==============
+
+    useEffect(() => {
+        return () => {
+            console.log("REDUCER REMOVED!")
+        }
+    }, [])
 
     function reducer(state, action) {
         switch (action.type) {
@@ -27,9 +47,16 @@ const ReducerSample = ()=> {
         );
     }
     return (
-    <div>
-        This value is for the useReducer: {Counter()}
-    </div>);
+        <div>
+            This value is for the useReducer: {Counter()}
+
+            <div className="Field">
+                <label>{value}</label>
+                <button onClick={() => { setIncrementValue(incrementValue + 1) }} > Add Value +</button>
+                <Test buttonClicked={doSomething} />
+            </div>
+
+        </div>);
 }
 
 export default ReducerSample;
