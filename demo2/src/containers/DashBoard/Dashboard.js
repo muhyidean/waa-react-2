@@ -8,6 +8,7 @@ import ProductDetails from "../../components/ProductDetails/ProductDetails";
 import { ThemeColorContext } from "../../context/ThemeColor";
 import ReducerSample from "../../components/ReducerSample/ReducerSample";
 import useLocalStorage from "../../hooks/useLocalStorage";
+import ParentTest from "../../components/ParentTest/ParentTest";
 
 export default function Dashboard() {
 
@@ -115,6 +116,10 @@ export default function Dashboard() {
                         {flag ? <ReducerSample /> : ""}
                         <button onClick={flagHandler}> Hide</button>
                     </div>
+
+    
+                        <ParentTest/>
+                    
                 </div>
 
 

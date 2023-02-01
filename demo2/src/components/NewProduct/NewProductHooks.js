@@ -7,6 +7,7 @@ const NewProductHook = (props) => {
 
 
     const newProductForm = useRef();
+    
     const [price, setPrice] = useLocalStorage('price','0')
 
     const ProductHandler = () =>{

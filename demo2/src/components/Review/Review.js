@@ -6,7 +6,6 @@ const Review = (props) => {
 
     const colorContext = useContext(ThemeColorContext);
 
-    console.log("RENDER FROM REVIEW");
     return (
 
         <div style={{ color: colorContext.color }} className='Review'>

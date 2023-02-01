@@ -8,6 +8,7 @@ const ProductDetails = (props) => {
     // FOR DEMO PURPOSES ======
 
     const [value, setValue] = useState(0);  // click button , this will change the value for useMemo example
+    
     const textField = useRef();
     // ========================
 
@@ -32,8 +33,8 @@ const ProductDetails = (props) => {
     // JUST FOR EXPLNATION useMemo()=========================
 
     const expensiveComputation = (num) => {
-        console.log('Computation done!  ' + num * 10); // 
-        return num * 10;
+        console.log('Computation done!  '); // 
+        return num;
     };
     const memoizedValue = useMemo(() => expensiveComputation(value), [value]);
     // const memoizedValue = expensiveComputation(value); // Uncomment this and then click on the Hide/Show button to see how the value is loading everytime it is re-rendered
