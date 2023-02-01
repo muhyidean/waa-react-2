@@ -7,7 +7,6 @@ function ParentTest() {
     const [value, setValue] = useState(0);
     const [incrementValue, setIncrementValue] = useState(1);
 
-
     // const doSomething = () => {
     //     setValue(v => v + incrementValue);
     // }
@@ -23,7 +22,7 @@ function ParentTest() {
             <label>{value}</label>
             <button onClick={() => { setIncrementValue(incrementValue + 1) }} > Add Value +</button>
             <div className="Field">
-                <ChildTest buttonClicked={doSomething} />
+                <ChildTest buttonClicked={doSomething}/>
             </div>
 
 
