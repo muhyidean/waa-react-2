@@ -4,8 +4,6 @@ import React, { useCallback, useEffect, useReducer, useState } from "react";
 const ReducerSample = () => {
 
 
-
-
     useEffect(() => {
         return () => {
             console.log("REDUCER REMOVED!")
@@ -35,11 +33,12 @@ const ReducerSample = () => {
             </React.Fragment>
         );
     }
+    
     return (
         <div>
             This value is for the useReducer: {Counter()}
-
-        </div>);
+        </div>
+    );
 }
 
 export default ReducerSample;

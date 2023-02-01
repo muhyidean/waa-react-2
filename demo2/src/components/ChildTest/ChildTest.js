@@ -8,8 +8,9 @@ const ChildTest = (props) => {
 
         <div style={{ 'backgroundColor': 'white'}}>
             <h3> CHILD TEST</h3>
-            <button onClick={props.buttonClicked} > TEST BUTTON ++</button>
-
+            <label>{props.val}</label>
+            <button  onClick={props.buttonClicked}> TEST BUTTON ++</button>
+            
         </div>
     );
 
