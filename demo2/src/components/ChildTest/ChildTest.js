@@ -2,7 +2,7 @@ import React from 'react';
 
 
 const ChildTest = (props) => {
-    console.log("RENDER FROM TEST")
+    console.log("RENDER FROM CHILD")
 
     return (
 
@@ -13,7 +13,6 @@ const ChildTest = (props) => {
             
         </div>
     );
-
 }
 
 export default React.memo(ChildTest);

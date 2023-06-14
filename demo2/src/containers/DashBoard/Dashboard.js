@@ -1,6 +1,5 @@
 import Products from "../Products/Products";
 import React, { useEffect, useState } from 'react';
-import NewProduct from "../../components/NewProduct/NewProduct";
 import NewProductHook from "../../components/NewProduct/NewProductHooks";
 
 import axios from 'axios';
@@ -9,13 +8,11 @@ import { ThemeColorContext } from "../../context/ThemeColor";
 import ReducerSample from "../../components/ReducerSample/ReducerSample";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import ParentTest from "../../components/ParentTest/ParentTest";
+import { fetchService } from "../../services/fetchServices";
+
 
 export default function Dashboard() {
 
-
-   
-    
-    
     const [flag, setFlag] = useState(true);
     const [themeColorState, setThemeColorState] = useState({ color: "red" });
     const [selectedState, setSelectedState] = useState(0);
@@ -27,7 +24,6 @@ export default function Dashboard() {
         ]
     );
 
-    
     const [productState, setProductState] = useState(
         {
             name: "",
@@ -35,16 +31,9 @@ export default function Dashboard() {
         }
     )
 
-    const fetchProducts = () => {
-        axios.get('http://localhost:8080/api/v1/products')
-            .then(response => {
-                setProductsState(response.data);
-            })
-            .catch(error => {
-                console.log(error.message)
-            })
+    const fetchProducts = async () => {
+        setProductsState(await fetchService.get("products"));
     }
-
 
     useEffect(() => {
         fetchProducts()
@@ -73,6 +62,7 @@ export default function Dashboard() {
 
     const setSelected = (id) => {
         setSelectedState(id);
+        console.log(id)
     }
 
     const reviewColorHandler = () => {
@@ -100,10 +90,9 @@ export default function Dashboard() {
                         id={selectedState}
                     />
                 </div>
-
                 <div>
                     {/* To try the other method of adding a new product using react hooks useRef */}
-                    <NewProductHook />
+                    <NewProductHook click={flagHandler}/>
                     {/* <NewProduct
                         name={productState.name}
                         price={productState.price}
@@ -117,13 +106,8 @@ export default function Dashboard() {
                         <button onClick={flagHandler}> Hide</button>
                     </div>
 
-    
-                        <ParentTest/>
-                    
+                    <ParentTest />
                 </div>
-
-
-
             </ThemeColorContext.Provider>
         </React.Fragment>
 

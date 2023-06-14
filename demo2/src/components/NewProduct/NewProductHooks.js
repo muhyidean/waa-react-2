@@ -1,12 +1,15 @@
 import axios from "axios";
 import { useState , useRef, useEffect} from "react";
 import useLocalStorage from "../../hooks/useLocalStorage";
+import { fetchService } from "../../services/fetchServices";
 import './NewProduct.css';
 
 const NewProductHook = (props) => {
 
 
     const newProductForm = useRef();
+
+    
     
     const [price, setPrice] = useLocalStorage('price','0')
 
@@ -16,14 +19,11 @@ const NewProductHook = (props) => {
             name: form['name'].value,
             price: form['price'].value
         };
+
         console.log(data);
-        axios.post('http://localhost:8080/api/v1/products', data)
-        .then(data => {
-            console.log('Success', data);
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        })
+
+        fetchService.post("products",data);
+        props.click();
     }
 
     useEffect(  ()=> {

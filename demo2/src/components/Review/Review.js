@@ -16,4 +16,4 @@ const Review = (props) => {
 
 }
 
-export default React.memo(Review);
+export default Review;

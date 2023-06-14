@@ -8,7 +8,6 @@ const ProductDetails = (props) => {
     // FOR DEMO PURPOSES ======
 
     const [value, setValue] = useState(0);  // click button , this will change the value for useMemo example
-    
     const textField = useRef();
     // ========================
 
@@ -17,7 +16,7 @@ const ProductDetails = (props) => {
 
     useEffect(
         () => {
-            axios.get('http://localhost:8080/api/v1/products/' + props.id + '/reviews')
+            axios.get('http://localhost:8080/api/v1/products/' + props.id)
                 .then(response => {
                     setProductDetail(response.data)
                     // console.log("RESPONSE:", response.data)
@@ -27,17 +26,18 @@ const ProductDetails = (props) => {
         [props.id])
 
 
-
-
-
     // JUST FOR EXPLNATION useMemo()=========================
 
     const expensiveComputation = (num) => {
         console.log('Computation done!  '); // 
         return num;
     };
+
     const memoizedValue = useMemo(() => expensiveComputation(value), [value]);
     // const memoizedValue = expensiveComputation(value); // Uncomment this and then click on the Hide/Show button to see how the value is loading everytime it is re-rendered
+
+   
+    const result = memoizedValue + 5;
 
     const memoizedFunction = (num) => {
         setValue(num);
@@ -61,7 +61,6 @@ const ProductDetails = (props) => {
 
     let productDetailsDisplay = null;
     if (props.id != 0) {
-
         productDetailsDisplay = (
 
             <div className="ProductDetail">
@@ -78,7 +77,7 @@ const ProductDetails = (props) => {
                         {space} Reviews <br />
                         {productDetail.reviews != null ? productDetail.reviews.map(review => {
                             return <Review comment={review.comment} key={review.id} />
-                        }) : null}
+                        }) : "NO REVIEWS"}
                     </div>
 
 
